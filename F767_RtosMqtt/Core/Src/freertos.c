@@ -36,6 +36,12 @@
 #include "tftlcd.h"
 #include "lcd_print.h"
 #include "pic.h"
+
+#include "iot_interface.h"
+#include "protocol.h"
+#include "mcu_if.h"
+#include "spec_opcode.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,9 +69,9 @@ QueueHandle_t MQTT_Data_Queue = NULL;
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
-    .name = "defaultTask",
-    .priority = (osPriority_t) osPriorityNormal,
-    .stack_size = 256 * 4
+  .name = "defaultTask",
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 256 * 4
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,6 +105,14 @@ const osThreadAttr_t lcd_dis_attributes = {
 void lcd_dis_entry(void *argument);
 
 
+osThreadId_t task_wifi_handle;
+const osThreadAttr_t task_wifi_attributes = {
+    .name = "task_wifi",
+    .priority = (osPriority_t) osPriorityNormal,
+    .stack_size = 256 * 10
+};
+void task_wifi_entry(void *argument);
+
 
 /* USER CODE END FunctionPrototypes */
 
@@ -113,39 +127,44 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-    /* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-    /* USER CODE END Init */
+  /* USER CODE END Init */
 
-    /* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
     /* add mutexes, ... */
-    /* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-    /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
     /* add semaphores, ... */
-    /* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-    /* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
     /* start timers, add new ones, ... */
-    /* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-    /* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
     /* 创建Test_Queue */
     MQTT_Data_Queue = xQueueCreate(10, sizeof(DHT11_Data_TypeDef));    /*消息的大?? */
-    /* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-    /* Create the thread(s) */
-    /* creation of defaultTask */
-    defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  /* Create the thread(s) */
+  /* creation of defaultTask */
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
-    /* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
     task_led_handle = osThreadNew(task_led_entry, NULL, &task_led_attributes);
-//    lcd_dis_handle = osThreadNew(lcd_dis_entry, NULL, &lcd_dis_attributes);
-//    task_test_c_handle = osThreadNew(task_test_c_entry, NULL, &task_test_c_attributes);
+//	lcd_dis_handle = osThreadNew(lcd_dis_entry, NULL, &lcd_dis_attributes);
+//	task_test_c_handle = osThreadNew(task_test_c_entry, NULL, &task_test_c_attributes);
+//	task_wifi_handle = osThreadNew(task_wifi_entry, NULL, &task_wifi_attributes);
 
-    /* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
+
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -158,9 +177,9 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
-    /* init code for LWIP */
-    MX_LWIP_Init();
-    /* USER CODE BEGIN StartDefaultTask */
+  /* init code for LWIP */
+  MX_LWIP_Init();
+  /* USER CODE BEGIN StartDefaultTask */
 
     mqtt_thread_init();
 
@@ -170,7 +189,7 @@ void StartDefaultTask(void *argument)
         task_tcp_client();
         osDelay(10);
     }
-    /* USER CODE END StartDefaultTask */
+  /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/

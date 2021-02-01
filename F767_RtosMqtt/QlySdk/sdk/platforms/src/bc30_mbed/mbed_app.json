@@ -1,0 +1,7 @@
+{
+    "target_overrides": {
+        "UNO_81A": {
+            "target.features_add": ["LWIP", "CONSOLE", "SDCARD", "GPADCKEY", "SMART_CONFIG"]
+        }
+    }
+}

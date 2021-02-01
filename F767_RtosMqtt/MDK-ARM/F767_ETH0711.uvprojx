@@ -336,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_HAL_DRIVER,STM32F767xx</Define>
+              <Define>USE_HAL_DRIVER,STM32F767xx, USE_STDPERIPH_DRIVER,USE_PATCH,IOT_DEVICE_IS_GATEWAY</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../LWIP/App;../LWIP/Target;../Middlewares/Third_Party/LwIP/src/include;../Middlewares/Third_Party/LwIP/system;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM7/r0p1;../Middlewares/Third_Party/LwIP/src/include/netif/ppp;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Middlewares/Third_Party/LwIP/src/include/lwip;../Middlewares/Third_Party/LwIP/src/include/lwip/apps;../Middlewares/Third_Party/LwIP/src/include/lwip/priv;../Middlewares/Third_Party/LwIP/src/include/lwip/prot;../Middlewares/Third_Party/LwIP/src/include/netif;../Middlewares/Third_Party/LwIP/src/include/compat/posix;../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;../Middlewares/Third_Party/LwIP/src/include/compat/stdc;../Middlewares/Third_Party/LwIP/system/arch;../Drivers/CMSIS/Include;..\UserBsp;..\UserApp;..\MQTTPacket;..\cJSON;..\UserBsp\TftLcd</IncludePath>
+              <IncludePath>../Core/Inc; ../LWIP/App; ../LWIP/Target; ../Middlewares/Third_Party/LwIP/src/include; ../Middlewares/Third_Party/LwIP/system; ../Drivers/STM32F7xx_HAL_Driver/Inc; ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy; ../Middlewares/Third_Party/FreeRTOS/Source/include; ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2; ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM7/r0p1; ../Middlewares/Third_Party/LwIP/src/include/netif/ppp; ../Drivers/CMSIS/Device/ST/STM32F7xx/Include; ../Middlewares/Third_Party/LwIP/src/include/lwip; ../Middlewares/Third_Party/LwIP/src/include/lwip/apps; ../Middlewares/Third_Party/LwIP/src/include/lwip/priv; ../Middlewares/Third_Party/LwIP/src/include/lwip/prot; ../Middlewares/Third_Party/LwIP/src/include/netif; ../Middlewares/Third_Party/LwIP/src/include/compat/posix; ../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa; ../Middlewares/Third_Party/LwIP/src/include/compat/posix/net; ../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys; ../Middlewares/Third_Party/LwIP/src/include/compat/stdc; ../Middlewares/Third_Party/LwIP/system/arch; ../Drivers/CMSIS/Include; ..\UserBsp; ..\UserApp; ..\MQTTPacket; ..\cJSON; ..\UserBsp\TftLcd; ..\QlySdk\include; ..\QlySdk\user; ..\QlySdk\sdk\src\bin_adapter\include\mcu; ..\QlySdk\sdk\src\bin_adapter\include\protocol; ..\QlySdk\sdk\src\bin_adapter\include\spec_define\wifi</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1171,6 +1171,56 @@
               <FileName>lcd_print.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UserBsp\TftLcd\lcd_print.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>QlySdk</GroupName>
+          <Files>
+            <File>
+              <FileName>mcu_deserialize.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\sdk\src\bin_adapter\src\mcu\mcu_deserialize.c</FilePath>
+            </File>
+            <File>
+              <FileName>mcu_if.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\sdk\src\bin_adapter\src\mcu\mcu_if.c</FilePath>
+            </File>
+            <File>
+              <FileName>mcu_serialize.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\sdk\src\bin_adapter\src\mcu\mcu_serialize.c</FilePath>
+            </File>
+            <File>
+              <FileName>protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\sdk\src\bin_adapter\src\protocol\protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>protocol_if.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\sdk\src\bin_adapter\src\protocol\protocol_if.c</FilePath>
+            </File>
+            <File>
+              <FileName>iot_interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\user\iot_interface.c</FilePath>
+            </File>
+            <File>
+              <FileName>module_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\user\module_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>spec_opcode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\user\spec_opcode.c</FilePath>
+            </File>
+            <File>
+              <FileName>wifi_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\QlySdk\user\wifi_task.c</FilePath>
             </File>
           </Files>
         </Group>

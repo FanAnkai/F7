@@ -1,0 +1,60 @@
+# RT-Thread building script for component
+from building import *
+
+NEED_DEBUG = "YES"
+
+cwd     = GetCurrentDir()
+src     =  Glob('src/*.c')
+src		+= Glob('thirdparty/*.c')
+src		+= Glob('thirdparty/mqtt/*.c')
+src 	+= Glob('thirdparty/ql_public/*.c')
+src		+= Glob('platforms/src/rt_thread/*.c')
+src 	+= Glob('platforms/src/rt_thread/easyflash/*.c')
+libs    = ['sdk']
+libpath = [cwd]
+
+include_path =[cwd +'/../include']
+include_path +=[cwd +'/platforms/include']
+include_path +=[cwd + '/src']
+include_path +=[cwd + '/thirdparty']
+include_path +=[cwd + '/thirdparty/mqtt']
+include_path +=[cwd + '/thirdparty/ql_public']
+include_path +=[cwd + '/../rt-thread/include']
+include_path +=[cwd + '/../rt-thread/components/libc/pthreads']
+include_path +=[cwd +'/src/ql_patch']
+
+
+cppdefines = ['LAN_DETECT']
+cppdefines += ['LOCAL_SAVE']
+cppdefines += ['SUPPORT_REBOOT_OTA']
+cppdefines += ['__SDK_TYPE__ = 0']
+cppdefines += ['__SDK_PLATFORM__ = 0x1A']
+
+#mbed tls start
+tls_src     = Glob('thirdparty/mbedtls/library/*.c')
+tls_src     += Glob('thirdparty/mbedtls/library/rt_thread/*.c')
+
+tls_include =[cwd +'/thirdparty/mbedtls/include']
+tls_include +=[cwd +'/thirdparty/mbedtls/include/mbedtls']
+tls_include +=[cwd +'/thirdparty/mbedtls/include/mbedtls/rt_thread']
+
+tls_defines = ['MBEDTLS_CONFIG_FILE=\\"mbedtls/rt_thread/config.h\\"']
+
+group  = DefineGroup('mbedcrypto', tls_src,depend = [], CPPPATH = tls_include,CPPDEFINES = tls_defines,LIBRARY = ['aes.o', 'aesni.o', 'arc4.o', 'asn1parse.o', 'asn1write.o','base64.o','bignum.o','blowfish.o','camellia.o','ccm.o','cipher.o','cipher_wrap.o','cmac.o','ctr_drbg.o','des.o','dhm.o','ecdh.o','ecdsa.o','ecjpake.o','ecp.o','ecp_curves.o','entropy.o','entropy_poll.o','error.o','gcm.o','havege.o','hmac_drbg.o','md.o','md2.o','md4.o','md5.o','md_wrap.o','memory_buffer_alloc.o','oid.o','padlock.o','pem.o','pk.o','pk_wrap.o','pkcs12.o','pkcs5.o','pkparse.o','pkwrite.o','platform.o','ripemd160.o','rsa.o','sha1.o','sha256.o','sha512.o','threading.o','timing.o','version.o','version_features.o','xtea.o'])
+group  = DefineGroup('mbedx509', tls_src,depend = [], CPPPATH = tls_include,CPPDEFINES = tls_defines,LIBRARY = [ 'certs.o', 'pkcs11.c', 'x509.c','x509_create.c','x509_crl.c', 'x509_crt.c', 'x509_csr.c', 'x509write_crt.c', 'x509write_csr.c'])
+group  = DefineGroup('mbedtls', tls_src,depend = [], CPPPATH = tls_include,CPPDEFINES = tls_defines,LIBRARY = ['debug.o', 'net_sockets.o', 'ssl_cache.o', 'ssl_ciphersuites.o', 'ssl_cli.o', 'ssl_cookie.o', 'ssl_srv.o','ssl_ticket.o', 'ssl_tls.o'])
+#mbed tls end
+
+#patch start
+patch_src = Glob('src/ql_patch/*.c')
+patch_include = [cwd +'/src/ql_patch']
+group  = DefineGroup('patch', patch_src,depend = [], CPPPATH = patch_include,LIBRARY = ['ql_patch.o'])
+#patch end
+
+if NEED_DEBUG == "YES":
+	cppdefines += ['DEBUG_VERSION']
+	group = DefineGroup('iot_bk7231u_rtthread_debug', src,depend = ['RT_USING_LIBC','PKG_USING_EASYFLASH'], CPPPATH = include_path,CPPDEFINES = cppdefines,LIBRARY = ["iot_bk7231u_rtthread_debug"])
+else:
+	group = DefineGroup('iot_bk7231u_rtthread', src,depend = ['RT_USING_LIBC','PKG_USING_EASYFLASH'], CPPPATH = include_path,CPPDEFINES = cppdefines,LIBRARY = ["iot_bk7231u_rtthread"])
+
+Return('group')
