@@ -146,7 +146,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
     /* 创建Test_Queue */
-    MQTT_Data_Queue = xQueueCreate(10, sizeof(DHT11_Data_TypeDef));    /*消息的大?? */
+    MQTT_Data_Queue = xQueueCreate(10, sizeof(DHT11_Data_TypeDef));
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -156,8 +156,8 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
     task_led_handle = osThreadNew(task_led_entry, NULL, &task_led_attributes);
-//	lcd_dis_handle = osThreadNew(lcd_dis_entry, NULL, &lcd_dis_attributes);
-//	task_test_c_handle = osThreadNew(task_test_c_entry, NULL, &task_test_c_attributes);
+	lcd_dis_handle = osThreadNew(lcd_dis_entry, NULL, &lcd_dis_attributes);
+	task_test_c_handle = osThreadNew(task_test_c_entry, NULL, &task_test_c_attributes);
 //	task_wifi_handle = osThreadNew(task_wifi_entry, NULL, &task_wifi_attributes);
 
   /* USER CODE END RTOS_THREADS */
@@ -181,12 +181,11 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
   /* USER CODE BEGIN StartDefaultTask */
 
-    mqtt_thread_init();
-
-    /* Infinite loop */
+//    mqtt_thread_init();
+//    /* Infinite loop */
     for(;;)
     {
-        task_tcp_client();
+//        task_tcp_client();
         osDelay(10);
     }
   /* USER CODE END StartDefaultTask */
@@ -202,7 +201,7 @@ void task_led_entry(void *argument)
 {
     uint8_t led_flag = 1;
     
-    //TFTLCD_Init_ILI9225();
+    TFTLCD_Init_ILI9225();
 
     while(1)
     {
@@ -234,6 +233,8 @@ void task_led_entry(void *argument)
     }
 }
 
+void test_c(void);
+
 void task_test_c_entry(void *argument)
 {
     uint32_t task_cnt = 0;
@@ -241,33 +242,8 @@ void task_test_c_entry(void *argument)
     while(1)
     {
 
-        task_cnt++;
-        //lcd_print("task_cnt = %04d", task_cnt);
-        int * temp = malloc(10000);
-        *temp = 1000;
-        (*temp)++;
-        lcd_print("*temp = %d", *temp);
-        
-        if(task_cnt > 20)
-        {
-//            task_cnt = 0;
-//            __HAL_RCC_PWR_CLK_ENABLE();
-//            HAL_GPIO_DeInit(GPIOA, GPIO_PIN_All);
-//            HAL_GPIO_DeInit(GPIOB, GPIO_PIN_All);
-//            HAL_GPIO_DeInit(GPIOC, GPIO_PIN_All);
-//            HAL_GPIO_DeInit(GPIOD, GPIO_PIN_All);
-//            HAL_GPIO_DeInit(GPIOE, GPIO_PIN_All);
-//            HAL_GPIO_DeInit(GPIOF, GPIO_PIN_All);
-//            HAL_GPIO_DeInit(GPIOG, GPIO_PIN_All);
-//            __disable_irq();
-//            HAL_PWREx_EnableFlashPowerDown();
-//            __HAL_RCC_CLEAR_RESET_FLAGS();
-//            HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
-//            __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-//            HAL_PWR_EnterSTANDBYMode();
-        }
-        
-        osDelay(200);
+		test_c();
+        osDelay(2000);
     }
 }
 

@@ -151,6 +151,7 @@
 "f767_eth0711\module_config.o"
 "f767_eth0711\spec_opcode.o"
 "f767_eth0711\wifi_task.o"
+"f767_eth0711\test_c.o"
 --library_type=microlib --strict --scatter "F767_ETH0711\F767_ETH0711.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -137,3 +137,5 @@ void iot_module_info_get(iot_u8 info_type);
 void iot_module_info_cb(iot_u8 info_type, iot_u8 info_len, iot_u8 * info);
 
 #endif
+
+
