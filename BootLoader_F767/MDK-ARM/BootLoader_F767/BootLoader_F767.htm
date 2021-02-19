@@ -3,7 +3,7 @@
 <title>Static Call Graph - [BootLoader_F767\BootLoader_F767.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image BootLoader_F767\BootLoader_F767.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Sep 27 14:30:15 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Feb 18 17:55:20 2021
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -792,18 +792,18 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[aa]"></a>HAL_UART_ErrorCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f7xx_hal_uart.o(i.HAL_UART_ErrorCallback))
-<BR><BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_IRQHandler
-<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_DMAAbortOnError
+<BR><BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_DMAAbortOnError
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_IRQHandler
 </UL>
 
 <P><STRONG><a name="[a7]"></a>HAL_UART_IRQHandler</STRONG> (Thumb, 430 bytes, Stack size 32 bytes, stm32f7xx_hal_uart.o(i.HAL_UART_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = HAL_UART_IRQHandler &rArr; UART_EndTransmit_IT
 </UL>
-<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_ErrorCallback
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_EndTransmit_IT
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_EndRxTransfer
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_ErrorCallback
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_WakeupCallback
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort_IT
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_EndTransmit_IT
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_EndRxTransfer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 </UL>
@@ -983,9 +983,9 @@ Global Symbols
 <P><STRONG><a name="[c5]"></a>check_iap</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, app_iap.o(i.check_iap))
 <BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = check_iap &rArr; run_iap &rArr; parse_loop_pc &rArr; iap_rx_data &rArr; iap_send_cmd &rArr; uart_send_cmd &rArr; creat_send_cmd &rArr; send_frame_creat
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_rx_init
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_rx_init
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;run_iap
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1177,11 +1177,11 @@ Global Symbols
 <P><STRONG><a name="[c8]"></a>run_iap</STRONG> (Thumb, 62 bytes, Stack size 0 bytes, app_iap.o(i.run_iap))
 <BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = run_iap &rArr; parse_loop_pc &rArr; iap_rx_data &rArr; iap_send_cmd &rArr; uart_send_cmd &rArr; creat_send_cmd &rArr; send_frame_creat
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receive_uart_pc
+<BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receive_uart_pc
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_loop_pc
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kfifo_len
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kfifo_get
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_iap
 </UL>
@@ -1197,10 +1197,10 @@ Global Symbols
 <P><STRONG><a name="[cb]"></a>stm32_flash_erase</STRONG> (Thumb, 106 bytes, Stack size 48 bytes, mcu_flash_f7.o(i.stm32_flash_erase))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = stm32_flash_erase &rArr; HAL_FLASHEx_Erase &rArr; FLASH_WaitForLastOperation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASHEx_Erase
+<BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetSector
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASHEx_Erase
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASH_Unlock
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASH_Lock
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetSector
 </UL>
 <BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_erase
 </UL>
@@ -1242,8 +1242,8 @@ Global Symbols
 <P><STRONG><a name="[c6]"></a>uart_rx_init</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, app_iap.o(i.uart_rx_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = uart_rx_init &rArr; kfifo_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Receive_IT
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kfifo_init
+<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kfifo_init
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Receive_IT
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_iap
 </UL>

@@ -8,8 +8,16 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#pragma pack(push, 1)
 
-
+typedef struct
+{
+	char a[9];
+	double c;
+	int b;
+	
+	
+}test0_t;
 
 typedef struct
 {
@@ -55,6 +63,16 @@ typedef struct
 }test5_t;
 
 
+
+typedef union
+{
+	char a[9];
+	int b;
+	double c;
+	
+}test_union;
+
+#pragma pack(pop)
 
 
 

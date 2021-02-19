@@ -38,11 +38,13 @@ void test_size(void)
 	printf("sizeof(int) = %d\n",		sizeof(int));
 	printf("sizeof(char) = %d\n",		sizeof(char));
 	
+	printf("sizeof(test0_t) = %d\n", sizeof(test0_t));
 	printf("sizeof(test1_t) = %d\n", sizeof(test1_t));
 	printf("sizeof(test2_t) = %d\n", sizeof(test2_t));
 	printf("sizeof(test3_t) = %d\n", sizeof(test3_t));
 	printf("sizeof(test4_t) = %d\n", sizeof(test4_t));
 	printf("sizeof(test5_t) = %d\n", sizeof(test5_t));
+	printf("sizeof(test_union) = %d\n", sizeof(test_union));
 	
 	printf("\r\n");
 }
